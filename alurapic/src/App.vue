@@ -1,10 +1,17 @@
 <template>
   <div class="corpo">
     <h1 class="centralizado" v-text="titulo"></h1>
+    <input
+      type="search"
+      class="filtro"
+      @input="filtro = $event.target.value"
+      placeholder="Filtre por parte do título1"
+    />
+    {{ filtro }}
     <ul class="lista_foto">
       <li
         class="lista_foto-itens"
-        v-for="nomeGenerico of fotos"
+        v-for="nomeGenerico of fotosComFiltro"
         :key="nomeGenerico"
       >
         <meu-painel :titulo="nomeGenerico.titulo">
@@ -28,8 +35,20 @@ export default {
   data() {
     return {
       titulo: "AluraPic",
-      fotos: []
+      fotos: [],
+      filtro: ""
     };
+  },
+  computed: {
+    fotosComFiltro() {
+      if (this.filtro) {
+        /* filtrar */
+        let exp = new RegExp(this.filtro.trim(), "i");
+        return this.fotos.filter(foto => exp.test(foto.titulo));
+      } else {
+        return this.fotos;
+      }
+    }
   },
   created() {
     this.$http
@@ -63,6 +82,11 @@ export default {
 }
 
 .imagem-responsiva {
+  width: 100%;
+}
+
+.filtro {
+  display: block;
   width: 100%;
 }
 </style>
