@@ -15,8 +15,7 @@
         :key="nomeGenerico"
       >
         <meu-painel :titulo="nomeGenerico.titulo">
-          <img
-            class="imagem-responsiva"
+          <imagem-responsiva
             :src="nomeGenerico.url"
             :alt="nomeGenerico.titulo"
           />
@@ -28,9 +27,12 @@
 
 <script>
 import Painel from "./components/shared/painel/Painel.vue";
+import ImagemResponsiva from "./components/shared/imagem-responsiva/ImagemResponsiva.vue";
+
 export default {
   components: {
-    "meu-painel": Painel
+    "meu-painel": Painel,
+    "imagem-responsiva": ImagemResponsiva
   },
   data() {
     return {
@@ -79,10 +81,6 @@ export default {
 
 .lista_foto .lista_foto-itens {
   display: inline-block;
-}
-
-.imagem-responsiva {
-  width: 100%;
 }
 
 .filtro {
